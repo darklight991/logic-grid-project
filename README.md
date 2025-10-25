@@ -5,7 +5,6 @@ A C++ console-based puzzle game that generates Sudoku-style puzzles, lets users 
 - Generate Sudoku-style puzzles automatically
 - Allow user to input numbers interactively
 - Validate the users solution
-- Provide hints or solve automatically
 - Optional difficulty levels (easy, medium, hard)
 
 ## Building
