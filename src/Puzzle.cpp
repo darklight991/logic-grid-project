@@ -68,8 +68,7 @@ void Puzzle::setCell(int row, int col, int value) {
 int Puzzle::getCellValue(int row, int col) const {
     return grid[row][col].getValue();
 }
-<<<<<<< HEAD
-=======
+
 bool Puzzle::checkMistakes() const {
     bool hasMistakes = false;
 
@@ -92,6 +91,7 @@ bool Puzzle::checkMistakes() const {
         }
     }
 
+    // --- Check Columns ---
     for (int col = 0; col < size; col++) {
         int count[10] = {0};
 
@@ -108,6 +108,7 @@ bool Puzzle::checkMistakes() const {
         }
     }
 
+    // --- Check 3×3 Subgrids ---
     for (int boxRow = 0; boxRow < 3; boxRow++) {
         for (int boxCol = 0; boxCol < 3; boxCol++) {
             int count[10] = {0};
@@ -136,4 +137,3 @@ bool Puzzle::checkMistakes() const {
 
     return hasMistakes;
 }
->>>>>>> aaf30b4 (Implemented second feature (mistake checker), updated Game.cpp, added tests)
