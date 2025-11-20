@@ -15,3 +15,12 @@ src/main.cpp
 )
 
 add_executable(logic_grid_game ${SOURCES})
+
+add_executable(test_no_mistakes tests/test_no_mistakes.cpp)
+add_test(NAME no_mistakes COMMAND test_no_mistakes)
+
+add_executable(test_row_duplicate tests/test_row_duplicate.cpp)
+add_test(NAME row_duplicate COMMAND test_row_duplicate)
+
+add_executable(test_subgrid_duplicate tests/test_subgrid_duplicate.cpp)
+add_test(NAME subgrid_duplicate COMMAND test_subgrid_duplicate)

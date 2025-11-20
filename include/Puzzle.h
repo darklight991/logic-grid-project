@@ -18,6 +18,7 @@ public:
     void display() const;
     bool isSolved() const;
     bool isValidMove(int row, int col, int value) const;
+    bool checkMistakes() const;
     void setCell(int row, int col, int value);
     int getCellValue(int row, int col) const;
 };

@@ -68,3 +68,72 @@ void Puzzle::setCell(int row, int col, int value) {
 int Puzzle::getCellValue(int row, int col) const {
     return grid[row][col].getValue();
 }
+<<<<<<< HEAD
+=======
+bool Puzzle::checkMistakes() const {
+    bool hasMistakes = false;
+
+    std::cout << "\n=== Checking for Mistakes ===\n";
+
+    // --- Check Rows ---
+    for (int row = 0; row < size; row++) {
+        int count[10] = {0};
+
+        for (int col = 0; col < size; col++) {
+            int val = grid[row][col].getValue();
+            if (val != 0) count[val]++;
+        }
+
+        for (int n = 1; n <= 9; n++) {
+            if (count[n] > 1) {
+                hasMistakes = true;
+                std::cout << "Row " << row + 1 << " has duplicate number: " << n << "\n";
+            }
+        }
+    }
+
+    for (int col = 0; col < size; col++) {
+        int count[10] = {0};
+
+        for (int row = 0; row < size; row++) {
+            int val = grid[row][col].getValue();
+            if (val != 0) count[val]++;
+        }
+
+        for (int n = 1; n <= 9; n++) {
+            if (count[n] > 1) {
+                hasMistakes = true;
+                std::cout << "Column " << col + 1 << " has duplicate number: " << n << "\n";
+            }
+        }
+    }
+
+    for (int boxRow = 0; boxRow < 3; boxRow++) {
+        for (int boxCol = 0; boxCol < 3; boxCol++) {
+            int count[10] = {0};
+
+            for (int row = boxRow * 3; row < boxRow * 3 + 3; row++) {
+                for (int col = boxCol * 3; col < boxCol * 3 + 3; col++) {
+                    int val = grid[row][col].getValue();
+                    if (val != 0) count[val]++;
+                }
+            }
+
+            for (int n = 1; n <= 9; n++) {
+                if (count[n] > 1) {
+                    hasMistakes = true;
+                    std::cout << "Subgrid (" 
+                              << boxRow + 1 << "," << boxCol + 1 
+                              << ") has duplicate number: " << n << "\n";
+                }
+            }
+        }
+    }
+
+    if (!hasMistakes) {
+        std::cout << "No mistakes found. Great job!\n";
+    }
+
+    return hasMistakes;
+}
+>>>>>>> aaf30b4 (Implemented second feature (mistake checker), updated Game.cpp, added tests)
