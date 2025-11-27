@@ -8,7 +8,6 @@ Puzzle::Puzzle(int size) : size(size) {
 }
 
 void Puzzle::generatePuzzle(int difficulty) {
-    // Simple mock generator for now — fill a few cells
     srand(static_cast<unsigned>(time(nullptr)));
 
     for (int i = 0; i < size; ++i) {
@@ -42,7 +41,6 @@ void Puzzle::display() const {
 }
 
 bool Puzzle::isSolved() const {
-    // For now, just check all cells are filled
     for (int i = 0; i < size; ++i)
         for (int j = 0; j < size; ++j)
             if (grid[i][j].getValue() == 0)
@@ -57,6 +55,25 @@ bool Puzzle::isValidMove(int row, int col, int value) const {
         return false;
     if (grid[row][col].getIsFixed())
         return false;
+
+    // Check row
+    for (int i = 0; i < size; i++)
+        if (grid[row][i].getValue() == value)
+            return false;
+
+    // Check column
+    for (int i = 0; i < size; i++)
+        if (grid[i][col].getValue() == value)
+            return false;
+
+    // Check 3x3 subgrid
+    int startRow = (row / 3) * 3;
+    int startCol = (col / 3) * 3;
+    for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 3; j++)
+            if (grid[startRow + i][startCol + j].getValue() == value)
+                return false;
+
     return true;
 }
 
@@ -77,12 +94,10 @@ bool Puzzle::checkMistakes() const {
     // --- Check Rows ---
     for (int row = 0; row < size; row++) {
         int count[10] = {0};
-
         for (int col = 0; col < size; col++) {
             int val = grid[row][col].getValue();
             if (val != 0) count[val]++;
         }
-
         for (int n = 1; n <= 9; n++) {
             if (count[n] > 1) {
                 hasMistakes = true;
@@ -94,12 +109,10 @@ bool Puzzle::checkMistakes() const {
     // --- Check Columns ---
     for (int col = 0; col < size; col++) {
         int count[10] = {0};
-
         for (int row = 0; row < size; row++) {
             int val = grid[row][col].getValue();
             if (val != 0) count[val]++;
         }
-
         for (int n = 1; n <= 9; n++) {
             if (count[n] > 1) {
                 hasMistakes = true;
@@ -108,18 +121,16 @@ bool Puzzle::checkMistakes() const {
         }
     }
 
-    // --- Check 3×3 Subgrids ---
+    // --- Check 3x3 Subgrids ---
     for (int boxRow = 0; boxRow < 3; boxRow++) {
         for (int boxCol = 0; boxCol < 3; boxCol++) {
             int count[10] = {0};
-
             for (int row = boxRow * 3; row < boxRow * 3 + 3; row++) {
                 for (int col = boxCol * 3; col < boxCol * 3 + 3; col++) {
                     int val = grid[row][col].getValue();
                     if (val != 0) count[val]++;
                 }
             }
-
             for (int n = 1; n <= 9; n++) {
                 if (count[n] > 1) {
                     hasMistakes = true;

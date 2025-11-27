@@ -37,15 +37,33 @@ void Game::play() {
             puzzle.generatePuzzle(difficulty);
             puzzle.display();
         }
+        
         else if (choice == 2) {
             puzzle.checkMistakes();
         }
+
         else if (choice == 3) {
-            std::cout << "Goodbye!\n";
-            return;
-        }
-        else {
-            std::cout << "Invalid choice. Try again.\n";
-        }
+    int row, col, val;
+    std::cout << "Enter row (1-9): ";
+    std::cin >> row;
+    std::cout << "Enter col (1-9): ";
+    std::cin >> col;
+    std::cout << "Enter value (1-9): ";
+    std::cin >> val;
+
+    if (puzzle.isValidMove(row - 1, col - 1, val)) {
+        puzzle.setCell(row - 1, col - 1, val);
+        puzzle.display();
+    } else {
+        std::cout << "Invalid move! Try again.\n";
     }
+
+    if (puzzle.isSolved()) {
+        std::cout << " Puzzle Solved! Great job!\n";
+        break;
+    }
+}
+else if (choice == 4) {
+    std::cout << "Goodbye!\n";
+    return;
 }
